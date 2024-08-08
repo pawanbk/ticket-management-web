@@ -1,1 +1,1 @@
-[] Have you changed the base repo?
+[ ] Have you changed the base repo?
