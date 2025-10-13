@@ -12,6 +12,7 @@ import TicketList from "./pages/TicketList.tsx";
 import Profile from "./pages/Profile.tsx";
 import TicketDetail from "./pages/ticket/id.jsx";
 import PageNotFound from "./pages/404/404.tsx";
+import EmailVerified from "./component/email-verified.jsx";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path="/profile" element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route path="/email-verified" element={<PrivateRoute />}>
+          <Route path="/email-verified" element={<EmailVerified />} />
         </Route>
         <Route path="/forget-password" element={<Forget />} />
         <Route path="/reset-password" element={<Reset />} />

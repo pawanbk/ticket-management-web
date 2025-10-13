@@ -22,7 +22,8 @@ export interface IUser {
     email: string,
     firstName: string,
     lastName: string,
-    username: string
+    username: string,
+    email_verified: boolean,
 }
 
 export interface ILoginPayload {

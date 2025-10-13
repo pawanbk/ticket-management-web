@@ -12,6 +12,7 @@ const CommentInput = (props) => {
                 value={props.commentInput}
                 onChange={props.change}
                 onKeyUp={(e) => e.key === 'Enter' && props.addComment()}
+                disabled={!props.isEmailVerified}
             />
             <div className="float-right  my-1">
                 {props.cancelBtn &&

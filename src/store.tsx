@@ -9,7 +9,8 @@ const initialState: InitialAuthState = {
     email: '',
     firstName: '',
     lastName: '',
-    username: ''
+    username: '',
+    email_verified: false,
   },
 };
 

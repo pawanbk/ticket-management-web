@@ -47,6 +47,10 @@ button{
     background: none;
     color: var(--link);
 }
+button.disabled{
+    pointer-events: none;
+    background-color: #e9ecef !important;
+}
 
 .icon{
     font-size: 25px;

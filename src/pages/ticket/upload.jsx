@@ -5,7 +5,7 @@ import FileService from "../../api/FileService";
 import TicketService from "../../api/TicketServices";
 import Attachment from "./attachment";
 
-const Upload = ({ ticket, attachments: initialAttachments = [] }) => {
+const Upload = ({ ticket, attachments: initialAttachments = [], isEmailVerified }) => {
   const [attachments, setAttachments] = useState(initialAttachments);
   const API_URL = `${process.env.REACT_APP_API_URL}/file/upload`;
 
@@ -74,10 +74,11 @@ const Upload = ({ ticket, attachments: initialAttachments = [] }) => {
         instantUpload={true}
         name="file"
         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+        disabled={!isEmailVerified}
       />
 
         { attachments.length > 0 && 
-            <Attachment attachments={attachments} downloadFile={downloadFile} copyToClipBoard={copyToClipBoard} deleteFile={deleteFile} />
+            <Attachment attachments={attachments} downloadFile={downloadFile} copyToClipBoard={copyToClipBoard} deleteFile={deleteFile} isEmailVerified={isEmailVerified} />
         }
 
     </div>

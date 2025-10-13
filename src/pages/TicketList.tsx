@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import AppLayout from "../layout/AppLayout";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { LinkContainer } from "react-router-bootstrap";
-import TicketItem from "../component/TicketItem";
 import "./TicketList.css";
 import DataTable from 'react-data-table-component';
 import moment from "moment";
@@ -13,10 +12,12 @@ import { CustomToaster, Notify } from "../shared/CustomToaster.tsx";
 import { FormSelect, Form } from "react-bootstrap";
 import { ITicket } from "../shared/interface";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store.tsx";
 
 export default function TicketList() {
   const [modalShow, setModalShow] = useState(false);
   const [tickets, setTickets] = useState<ITicket[]>([]);
+  const { user } = useAuthStore();
   const [selectedFilter, setSelectedFilter] = useState({
     status: "all",
     title: "",
@@ -85,7 +86,12 @@ export default function TicketList() {
             <option value="complete">Complete</option>
           </optgroup>
         </FormSelect>
-        <button className="customBtn" onClick={() => setModalShow(true)}>New</button>
+
+        {
+          user?.email_verified &&
+          <button className="customBtn" onClick={() => setModalShow(true)}>New</button>
+        }
+
       </div>
       <DataTable
         columns={columns}

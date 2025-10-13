@@ -5,6 +5,15 @@
     float: right;
 }
 
+.verify-email-btn {
+    width: inherit;
+    background-color: #ff9b33;
+    font-size: 13px;
+    padding: .5rem 0;
+    margin-top: .5rem;
+    color: white;
+}
+
 .grid-class{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px ,1fr));

@@ -12,6 +12,7 @@ import { CustomToaster, Notify } from "../shared/CustomToaster.tsx";
 
 export default function Profile() {
   const { user, setUser } = useAuthStore();
+  const isEmailVerified = user?.email_verified;
 
   const [inputs, setInputs] = useState({
     displayName: user?.username || "",
@@ -39,6 +40,14 @@ export default function Profile() {
       Notify("Profile updated successfully", "success");
     }
   }
+
+  const verifyEmail = async () => {
+    const res = await UserService.verifyEmail();
+    if (res?.status === 200 && res?.data?.success === true) {
+      Notify("Verification email sent successfully", "success");
+    }
+  }
+
   return (
     <AppLayout>
       <Breadcrumb className="d-flex justify-center">
@@ -48,6 +57,15 @@ export default function Profile() {
         <Breadcrumb.Item active>Profile</Breadcrumb.Item>
       </Breadcrumb>
       <div className="wrapper h-auto w-full p-5 bg-white rounded">
+        {
+          user?.email_verified === false &&
+          <div className="w-50 border-1 rounded d-flex flex-column items-center py-2 mb-3 m-auto">
+            <strong>Verify your email address</strong>
+            <span>Please click on the button to get your email verified.</span>
+            <button className="verify-email-btn" onClick={verifyEmail}>Continue</button>
+          </div>
+        }
+
         <strong>Edit Profile</strong>
         <div className="grid-class pt-4">
           <Form.Group className="mb-3 form-group">
@@ -62,14 +80,14 @@ export default function Profile() {
         <div className="grid-class">
           <Form.Group className="mb-3 form-group">
             <Form.Label>First name</Form.Label>
-            <Form.Control required name="firstName" value={capitalize(inputs.firstName)} onChange={handleChange} />
+            <Form.Control required name="firstName" value={capitalize(inputs.firstName)} onChange={handleChange} disabled={!isEmailVerified} />
           </Form.Group>
           <Form.Group className="mb-3 form-group">
             <Form.Label>Last name</Form.Label>
-            <Form.Control required type="text" name="lastName" value={capitalize(inputs.lastName)} onChange={handleChange} />
+            <Form.Control required type="text" name="lastName" value={capitalize(inputs.lastName)} onChange={handleChange} disabled={!isEmailVerified} />
           </Form.Group>
         </div>
-        <button className="customBtn" onClick={handleSubmit}>Save changes</button>
+        <button className={`customBtn ${!isEmailVerified ? "disabled" : ""}`} onClick={handleSubmit} disabled={!isEmailVerified} >Save changes</button>
       </div>
       <CustomToaster />
     </AppLayout >

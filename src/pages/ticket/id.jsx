@@ -33,6 +33,7 @@ export default function TicketDetail() {
   });
 
   const { user } = useAuthStore();
+  const isEmailVerified = user?.email_verified;
 
   const [commentInput, setCommentInput] = useState("");
   const [assignees, setAssignees] = useState([]);
@@ -198,19 +199,13 @@ export default function TicketDetail() {
                 <Form.Label>Description</Form.Label>
                 <Form.Control as="textarea" placeholder="Leave a comment here" name="description" value={ticket.description} style={{ height: "100px" }} onChange={handleChange} disabled={ticket.author !== user._id} />
               </Form.Group>
-              {ticket.author === user._id ? (
-                <Button className="form-control mt-3 button" type="submit">
-                  Update{" "}
-                </Button>
-              ) : (
-                <Button className="form-control mt-3 button" type="submit" disabled>
-                  Update
-                </Button>
-              )}
+              <Button className="form-control mt-3 button" type="submit" disabled= {!isEmailVerified || ticket.author === user._id} >
+                Update
+              </Button>
             </Form>
           )}
 
-          {activeTab === "upload" && <Upload attachments={ticket?.files} ticket={ticket?._id}></Upload>}
+          {activeTab === "upload" && <Upload attachments={ticket?.files} ticket={ticket?._id} isEmailVerified={isEmailVerified}></Upload>}
         </div>
         <div className="comment-section d-flex flex-column gap-2 border-start border-top rounded">
           <h5>All Comments</h5>
@@ -223,7 +218,7 @@ export default function TicketDetail() {
               </div>
             ))}
           <div className="comment-box">
-            <CommentInput commentInput={commentInput} change={(e) => setCommentInput(e.target.value)} addComment={addComment} />
+            <CommentInput commentInput={commentInput} change={(e) => setCommentInput(e.target.value)} addComment={addComment} isEmailVerified={isEmailVerified} />
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "../config/axios.ts";
 import { useAuthStore } from "../store.tsx";
 
@@ -12,6 +13,7 @@ const UserService = {
       }
     });
   },
+
   logout: () => {
     const { logout } = useAuthStore.getState();
     return new Promise(async (resolve, reject) => {
@@ -50,6 +52,15 @@ const UserService = {
       }
     });
   },
+
+  verifyEmail: async () => {
+    try {
+      const res = await axiosInstance.post("/user/verify-email");
+      return res;
+    } catch (error) {
+      console.error("Error verifying email", error);
+    }
+  }
 };
 
 export default UserService;
