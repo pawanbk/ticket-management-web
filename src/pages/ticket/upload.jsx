@@ -75,11 +75,11 @@ const Upload = ({ ticket, attachments: initialAttachments = [] }) => {
         name="file"
         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
       />
-
+      <div className="mt-5">
         { attachments.length > 0 && 
-            <Attachment attachments={attachments} downloadFile={downloadFile} copyToClipBoard={copyToClipBoard} deleteFile={deleteFile} />
+          <Attachment attachments={attachments} downloadFile={downloadFile} copyToClipBoard={copyToClipBoard} deleteFile={deleteFile} />
         }
-
+        </div>
     </div>
   );
 };

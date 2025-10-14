@@ -8,7 +8,7 @@ const Attachment = ({attachments, downloadFile, copyToClipBoard, deleteFile}) =>
                 {attachments.map((attachment, index) => (
                     <li
                         key={attachment?._id || attachment?.name}
-                        className={`p-4 flex justify-between items-center ${
+                        className={`p-2 flex justify-between items-center ${
                         index < attachments.length - 1 ? "border-b" : ""
                         }`}
                     >
